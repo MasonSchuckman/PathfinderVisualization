@@ -10,8 +10,8 @@ public class DrawBox extends JFrame{
 	
 	Node[][]data;
 	Node end;
-	int sizex=500;
-	int sizey=500;
+	int sizex=900;
+	int sizey=900;
 	int width;
 	int height;
 	ArrayList<Node>path;
@@ -19,7 +19,7 @@ public class DrawBox extends JFrame{
 	public DrawBox(int wid,int high,Node[][]dataPoints,Node end,LinkedList<Node>searchOrder){
 		JPanel panel=new JPanel();
 		getContentPane().add(panel);
-		setSize(sizex+10,sizey+40);
+		setSize(sizex+30,sizey+60);
 		width=wid;
 		height=high;
 		JButton button =new JButton("press");
@@ -33,15 +33,15 @@ public class DrawBox extends JFrame{
 	public void paint(Graphics g) {
 		//super.paint(g);  // fixes the immediate problem.
 		g.translate(10, 40);
-		int boxSize=500/width;
+		int boxSize=sizex/width;
 		for(int i=0; i<height; i++) {
 			for(int j=0; j<width; j++) {
 				if(data[i][j].type==1) {
-					g.setColor(Color.green);
+					g.setColor(Color.green);//color of the start
 					g.fillRect(j*boxSize, i*boxSize, boxSize, boxSize);
 				}
 				if(data[i][j].type==2) {
-					g.setColor(Color.yellow);
+					g.setColor(Color.magenta);//color of the end
 					g.fillRect(j*boxSize, i*boxSize, boxSize, boxSize);
 				}
 				if(data[i][j].type==3) {
@@ -54,7 +54,7 @@ public class DrawBox extends JFrame{
 				}  
 			}
 		}
-		int sleeping=20;
+		int sleeping=3;
 		//LinkedList<Node>order=(LinkedList<Node>)this.order.clone();
 		Node current=this.end;
 		while(!order.isEmpty()) {//drawing the tried paths		
@@ -75,12 +75,13 @@ public class DrawBox extends JFrame{
 		}
 		
 		current=this.end;
+		int c=0;
 		while(current.parent.parent!=null) {//drawing the used boxes			
 			current=current.parent;
 			int x=current.x;
 			int y=current.y;
-			
-			g.setColor(Color.blue);
+			c++;
+			g.setColor(Color.BLUE);
 			g.fillRect(x*boxSize, y*boxSize, boxSize, boxSize);
 			g.setColor(Color.black);
 			g.drawRect(x*boxSize, y*boxSize, boxSize, boxSize);
@@ -91,6 +92,7 @@ public class DrawBox extends JFrame{
 				e.printStackTrace();
 			}
 		}
+		System.out.println("drawn len: "+c);
 	}
 	
 

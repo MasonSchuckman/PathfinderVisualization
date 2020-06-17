@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Node{
+public class Node implements Comparable{
 	ArrayList<Node>children;
 	Node parent;
 	int type;
@@ -27,5 +27,17 @@ public class Node{
 			n.children.remove(this);
 			children.remove(i);
 		}
+	}
+	double ratio=1;
+	double weight=1;
+	@Override
+	public int compareTo(Object o) {
+		double aCost=(weight*astarCost+dsCost);
+		double bCost=weight*((Node)o).astarCost+((Node)o).dsCost;
+		return (int)(aCost-bCost);
+	}
+	
+	public String toString() {
+		return ""+(weight*astarCost+dsCost)+"";
 	}
 }
